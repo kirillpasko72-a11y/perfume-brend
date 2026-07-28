@@ -1,0 +1,119 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: background 0.5s var(--ease-soft), backdrop-filter 0.5s var(--ease-soft),
+    border-color 0.5s var(--ease-soft), height 0.4s var(--ease-soft);
+  border-bottom: 1px solid transparent;
+}
+
+.header--scrolled {
+  background: rgba(13, 11, 11, 0.78);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid rgba(217, 185, 130, 0.16);
+}
+
+.header__inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.18em;
+  color: var(--color-cream);
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 3vw, 48px);
+}
+
+.header__link {
+  position: relative;
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-grey-beige);
+  padding-block: 4px;
+}
+
+.header__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--color-gold);
+  transition: width 0.4s var(--ease-soft);
+}
+
+.header__link:hover,
+.header__link:focus-visible {
+  color: var(--color-cream);
+}
+
+.header__link:hover::after,
+.header__link:focus-visible::after {
+  width: 100%;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.header__burger {
+  display: none;
+  color: var(--color-cream);
+}
+
+@media (max-width: 860px) {
+  .header__nav {
+    display: none;
+  }
+
+  .header__actions .magnetic-btn {
+    display: none;
+  }
+
+  .header__burger {
+    display: inline-flex;
+  }
+}
+
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  background: rgba(13, 11, 11, 0.98);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.mobile-nav__link {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-cream);
+}
+
+.mobile-nav__link:hover,
+.mobile-nav__link:focus-visible {
+  color: var(--color-gold);
+}

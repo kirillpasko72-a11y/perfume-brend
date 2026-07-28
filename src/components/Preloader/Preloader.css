@@ -1,0 +1,53 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+}
+
+.preloader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.preloader__mark {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 7vw, 3.6rem);
+  letter-spacing: 0.16em;
+  color: var(--color-cream);
+  filter: blur(14px);
+  opacity: 0;
+  transform: scale(1.08);
+}
+
+.preloader__bar {
+  width: clamp(160px, 24vw, 260px);
+  height: 1px;
+  background: rgba(244, 238, 229, 0.12);
+  overflow: hidden;
+  position: relative;
+}
+
+.preloader__bar-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    var(--color-gold-dark),
+    var(--color-gold)
+  );
+  box-shadow: 0 0 12px var(--color-gold-soft);
+}
+
+.preloader__percent {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  color: var(--color-grey-beige);
+}

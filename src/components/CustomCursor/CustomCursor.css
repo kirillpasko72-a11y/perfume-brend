@@ -1,0 +1,49 @@
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  pointer-events: none;
+  z-index: 90;
+  will-change: transform;
+  transition: width 0.3s var(--ease-soft), height 0.3s var(--ease-soft),
+    background 0.3s var(--ease-soft), opacity 0.3s ease;
+}
+
+.custom-cursor--ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gold-soft);
+  pointer-events: none;
+  z-index: 89;
+  will-change: transform;
+  transition: width 0.4s var(--ease-soft), height 0.4s var(--ease-soft),
+    margin 0.4s var(--ease-soft), opacity 0.3s ease, border-color 0.3s ease;
+}
+
+.custom-cursor--hovering.custom-cursor {
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  background: var(--color-cream);
+}
+
+.custom-cursor--hovering.custom-cursor--ring {
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  margin-top: -32px;
+  border-color: var(--color-gold);
+}

@@ -1,0 +1,171 @@
+.collection {
+  position: relative;
+  background: var(--color-bg-alt);
+}
+
+.collection__head {
+  margin-bottom: clamp(56px, 8vw, 100px);
+}
+
+.collection__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.6vw, 32px);
+}
+
+@media (max-width: 900px) {
+  .collection__grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+}
+
+.fragrance-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 6px;
+  border: 1px solid rgba(244, 238, 229, 0.1);
+  background: rgba(244, 238, 229, 0.02);
+  transform-style: preserve-3d;
+  transform: perspective(900px) rotateX(var(--tiltX, 0deg)) rotateY(var(--tiltY, 0deg));
+  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux),
+    border-color 0.4s var(--ease-lux);
+}
+
+.fragrance-card:hover,
+.fragrance-card:focus-within {
+  border-color: var(--color-gold-soft);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), 0 0 40px -10px var(--color-gold-soft);
+}
+
+.fragrance-card__vessel {
+  position: relative;
+  height: clamp(200px, 22vw, 260px);
+  margin-bottom: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fragrance-card__glass {
+  position: relative;
+  width: 68px;
+  height: 68%;
+  border-radius: 14px 14px 20px 20px;
+  border: 1px solid rgba(244, 238, 229, 0.3);
+  overflow: hidden;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35), 0 18px 30px rgba(0, 0, 0, 0.4);
+}
+
+.fragrance-card__glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.fragrance-card__glass::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: 12%;
+  width: 18%;
+  height: 160%;
+  background: rgba(255, 255, 255, 0.35);
+  transform: rotate(10deg);
+}
+
+.fragrance-card__glass--smoke::before {
+  background: linear-gradient(180deg, rgba(60, 54, 50, 0.9), rgba(20, 18, 17, 0.95));
+}
+
+.fragrance-card__glass--iris::before {
+  background: linear-gradient(180deg, rgba(217, 185, 130, 0.55), rgba(140, 106, 57, 0.75));
+}
+
+.fragrance-card__glass--cedar::before {
+  background: linear-gradient(180deg, rgba(170, 161, 154, 0.55), rgba(60, 64, 58, 0.85));
+}
+
+.fragrance-card__cap {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 18px;
+  border-radius: 4px 4px 2px 2px;
+  background: linear-gradient(120deg, #8c6a39, #d9b982 50%, #8c6a39);
+}
+
+.fragrance-card__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(closest-side, var(--color-gold-faint), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-lux);
+}
+
+.fragrance-card:hover .fragrance-card__glow,
+.fragrance-card:focus-within .fragrance-card__glow {
+  opacity: 1;
+}
+
+.fragrance-card__code {
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  color: var(--color-gold);
+  margin-bottom: 10px;
+}
+
+.fragrance-card__name {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: var(--color-cream);
+  margin-bottom: 14px;
+}
+
+.fragrance-card__desc {
+  margin-bottom: 22px;
+  min-height: 4.4em;
+}
+
+.fragrance-card__footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.fragrance-card__price {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--color-cream);
+}
+
+.fragrance-card__btn {
+  padding: 0.75em 1.6em;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid rgba(244, 238, 229, 0.3);
+  border-radius: 999px;
+  color: var(--color-cream);
+  transition: border-color 0.35s var(--ease-soft), background 0.35s var(--ease-soft),
+    color 0.35s var(--ease-soft);
+}
+
+.fragrance-card__btn:hover,
+.fragrance-card__btn:focus-visible {
+  border-color: var(--color-gold);
+  background: var(--color-gold-faint);
+}
+
+.fragrance-card__btn--active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-bg);
+}

@@ -1,0 +1,252 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: var(--header-h);
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(120% 90% at 50% 0%, #1c1614 0%, var(--color-bg) 62%);
+}
+
+.hero__glow {
+  width: 46vw;
+  height: 46vw;
+  max-width: 640px;
+  max-height: 640px;
+}
+
+.hero__glow--gold {
+  top: -10%;
+  left: 55%;
+  background: radial-gradient(closest-side, rgba(217, 185, 130, 0.22), transparent 70%);
+}
+
+.hero__glow--cream {
+  bottom: -20%;
+  left: -10%;
+  background: radial-gradient(closest-side, rgba(244, 238, 229, 0.08), transparent 70%);
+}
+
+.hero__lines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__line--1 {
+  position: absolute;
+  top: 22%;
+  left: 0;
+  width: 38%;
+}
+
+.hero__line--2 {
+  position: absolute;
+  top: 12%;
+  bottom: 12%;
+  right: 8%;
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .hero__line--2 {
+    display: block;
+  }
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  width: 100%;
+}
+
+.hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.hero__mark {
+  opacity: 0;
+  filter: blur(10px);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  color: var(--color-cream);
+  font-size: clamp(2.6rem, 7.2vw, 6.4rem);
+}
+
+.hero__title .line-reveal {
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.hero__line-inner {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hero__word {
+  display: inline-flex;
+  margin-right: 0.26em;
+}
+
+.hero__word--gold {
+  color: var(--color-gold);
+}
+
+.hero__letter {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.hero__subtitle {
+  max-width: 460px;
+  opacity: 0;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  opacity: 0;
+}
+
+.hero__stage {
+  position: relative;
+  height: clamp(360px, 52vw, 620px);
+  opacity: 0;
+}
+
+.hero__sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(244, 238, 229, 0.35) 48%,
+    rgba(217, 185, 130, 0.5) 50%,
+    rgba(244, 238, 229, 0.35) 52%,
+    transparent 60%
+  );
+  background-size: 300% 300%;
+  background-position: 120% 0%;
+  mix-blend-mode: overlay;
+  opacity: 0;
+}
+
+.hero__sheen--play {
+  animation: hero-sheen-sweep 2.2s var(--ease-lux) 1;
+}
+
+@keyframes hero-sheen-sweep {
+  0% {
+    background-position: 130% 0%;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  100% {
+    background-position: -30% 0%;
+    opacity: 0;
+  }
+}
+
+.hero__scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(20px, 3vw, 40px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+  color: var(--color-grey-beige);
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--color-gold), transparent);
+  animation: hero-scroll-cue 2.4s ease-in-out infinite;
+}
+
+@keyframes hero-scroll-cue {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+    transform-origin: top;
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding-bottom: 64px;
+  }
+
+  .hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__copy {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__title .hero__line-inner {
+    justify-content: center;
+  }
+
+  .hero__cta {
+    justify-content: center;
+  }
+
+  .hero__stage {
+    order: -1;
+    height: clamp(260px, 70vw, 420px);
+  }
+
+  /* Hero content is taller than one screen on mobile, so a viewport-pinned
+     scroll cue would drift over the CTA buttons instead of the fold. */
+  .hero__scroll-cue {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__scroll-line {
+    animation: none;
+  }
+}

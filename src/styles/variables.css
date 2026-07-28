@@ -1,0 +1,38 @@
+:root {
+  /* Palette */
+  --color-bg: #0d0b0b;
+  --color-bg-alt: #171313;
+  --color-cream: #f4eee5;
+  --color-gold: #d9b982;
+  --color-gold-dark: #8c6a39;
+  --color-grey-beige: #aaa19a;
+
+  --color-gold-soft: rgba(217, 185, 130, 0.35);
+  --color-gold-faint: rgba(217, 185, 130, 0.12);
+
+  /* Type */
+  --font-display: "Times New Roman", "Iowan Old Style", "Georgia", serif;
+  --font-body: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* Layout */
+  --container-max: 1400px;
+  --gutter: clamp(20px, 5vw, 72px);
+  --section-space: clamp(96px, 14vw, 220px);
+
+  /* Motion */
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 0.35s;
+  --dur-med: 0.7s;
+  --dur-slow: 1.4s;
+
+  --header-h: 88px;
+
+  color-scheme: dark;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-h: 72px;
+  }
+}

@@ -1,0 +1,54 @@
+.magnetic-btn {
+  --btn-fg: var(--color-bg);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 1.05em 2.4em;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  white-space: nowrap;
+  isolation: isolate;
+}
+
+.magnetic-btn__label {
+  position: relative;
+  z-index: 1;
+}
+
+.magnetic-btn--primary {
+  background: linear-gradient(120deg, var(--color-gold), var(--color-gold-dark));
+  color: var(--btn-fg);
+}
+
+.magnetic-btn--ghost {
+  color: var(--color-cream);
+  border: 1px solid rgba(244, 238, 229, 0.3);
+  background: transparent;
+  transition: border-color 0.4s var(--ease-soft), background 0.4s var(--ease-soft);
+}
+
+.magnetic-btn--ghost:hover,
+.magnetic-btn--ghost:focus-visible {
+  border-color: var(--color-gold);
+  background: var(--color-gold-faint);
+}
+
+.magnetic-btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 rgba(217, 185, 130, 0);
+  transition: box-shadow 0.5s var(--ease-soft);
+  z-index: 0;
+}
+
+.magnetic-btn--primary:hover::after,
+.magnetic-btn--primary:focus-visible::after {
+  box-shadow: 0 0 34px 6px var(--color-gold-soft);
+}

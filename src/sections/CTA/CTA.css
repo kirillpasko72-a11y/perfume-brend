@@ -1,0 +1,73 @@
+.cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta__glow {
+  top: 20%;
+  left: 50%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 720px;
+  max-height: 720px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(217, 185, 130, 0.18), transparent 72%);
+}
+
+.cta__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 32px;
+}
+
+.cta__title {
+  max-width: 780px;
+}
+
+.cta__text {
+  max-width: 480px;
+}
+
+.cta__ring {
+  position: relative;
+  padding: 3px;
+  border-radius: 999px;
+  isolation: isolate;
+}
+
+.cta__ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from 0deg,
+    var(--color-gold-dark),
+    var(--color-gold),
+    var(--color-cream),
+    var(--color-gold),
+    var(--color-gold-dark)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: cta-ring-spin 6s linear infinite;
+  z-index: -1;
+}
+
+@keyframes cta-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta__ring::before {
+    animation: none;
+  }
+}
