@@ -18,6 +18,9 @@
 .magnetic-btn__label {
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .magnetic-btn--primary {

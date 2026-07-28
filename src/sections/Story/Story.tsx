@@ -76,6 +76,7 @@ export function Story() {
     <section id="story" className="story section-pad" ref={sectionRef}>
       <div className="container story__grid">
         <div className="story__copy">
+          <span className="story__index" aria-hidden="true">01</span>
           <span className="eyebrow">Since 2018</span>
           <h2 className="display-lg story__title">
             {TITLE_LINES.map((line) => (

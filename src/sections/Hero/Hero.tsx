@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { ArrowRight } from "lucide-react";
 import { LazyPerfumeBottleScene } from "@/three/LazyPerfumeBottleScene";
 import { MagneticButton } from "@/components/MagneticButton/MagneticButton";
 import { ensureGsapRegistered, gsap, ScrollTrigger } from "@/lib/gsap";
@@ -39,13 +40,16 @@ function KineticLine({
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
+  const watermarkRef = useRef<HTMLSpanElement>(null);
   const markRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const metaRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const sheenRef = useRef<HTMLDivElement>(null);
   const copyRef = useRef<HTMLDivElement>(null);
+  const ticksRef = useRef<HTMLDivElement>(null);
 
   const reducedMotion = useReducedMotion();
   const isTouch = useIsTouch();
@@ -59,11 +63,22 @@ export function Hero() {
 
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-      tl.to(markRef.current, {
+      tl.to(watermarkRef.current, {
         opacity: 1,
         filter: "blur(0px)",
-        duration: reducedMotion ? 0.3 : 0.9,
+        duration: reducedMotion ? 0.3 : 1.4,
+        ease: "power2.out",
       });
+
+      tl.to(
+        markRef.current,
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: reducedMotion ? 0.3 : 0.9,
+        },
+        "-=1.1"
+      );
 
       tl.to(
         letters,
@@ -78,14 +93,36 @@ export function Hero() {
 
       tl.to(
         subtitleRef.current,
-        { opacity: 1, y: 0, duration: reducedMotion ? 0.3 : 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: reducedMotion ? 0.3 : 0.9,
+        },
         "-=0.55"
       );
 
       tl.to(
         ctaRef.current,
-        { opacity: 1, y: 0, duration: reducedMotion ? 0.3 : 0.8 },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: reducedMotion ? 0.3 : 0.8,
+        },
         "-=0.5"
+      );
+
+      tl.to(
+        metaRef.current,
+        { opacity: 1, y: 0, duration: reducedMotion ? 0.3 : 0.7 },
+        "-=0.35"
+      );
+
+      tl.to(
+        ticksRef.current,
+        { opacity: 1, duration: reducedMotion ? 0.2 : 0.9 },
+        "-=1.2"
       );
 
       tl.fromTo(
@@ -101,7 +138,7 @@ export function Hero() {
             sheenRef.current?.classList.add("hero__sheen--play");
           },
         },
-        "-=0.9"
+        "-=1.2"
       );
     }, sectionRef);
 
@@ -170,9 +207,14 @@ export function Hero() {
         <div className="ambient-glow hero__glow hero__glow--cream" />
       </div>
 
+      <span className="hero__watermark" ref={watermarkRef} aria-hidden="true">
+        NOIRÉ
+      </span>
+
       <div className="hero__lines" aria-hidden="true">
         <span className="gold-rule hero__line--1" />
         <span className="gold-rule--vertical hero__line--2" />
+        <span className="hero__line-label">Collection N&deg;I — Est. 2018</span>
       </div>
 
       <div className="container hero__inner">
@@ -194,14 +236,27 @@ export function Hero() {
           <div className="hero__cta" ref={ctaRef}>
             <MagneticButton variant="primary" href="#notes">
               Discover
+              <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
             </MagneticButton>
             <MagneticButton variant="ghost" href="#collection">
               Explore Collection
             </MagneticButton>
           </div>
+
+          <div className="hero__meta" ref={metaRef}>
+            <span className="hero__meta-item">01–03</span>
+            <span className="hero__meta-divider" aria-hidden="true" />
+            <span className="hero__meta-item">Three signature scents</span>
+            <span className="hero__meta-divider" aria-hidden="true" />
+            <span className="hero__meta-item">Hand-poured in small batches</span>
+          </div>
         </div>
 
         <div className="hero__stage" ref={stageRef}>
+          <div className="hero__ticks" ref={ticksRef} aria-hidden="true">
+            <span className="hero__tick hero__tick--tl" />
+            <span className="hero__tick hero__tick--br" />
+          </div>
           <LazyPerfumeBottleScene />
           <div className="hero__sheen" ref={sheenRef} aria-hidden="true" />
         </div>

@@ -3,8 +3,10 @@ import { Canvas } from "@react-three/fiber";
 import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
 import { useIsMobile } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useAssetAvailable } from "@/hooks/useAssetAvailable";
 import { BottleFallback } from "./BottleFallback";
 import { BottleGroup } from "./BottleGroup";
+import { MODEL_PATH } from "./BottleModel";
 import { SceneLights } from "./SceneLights";
 import { SceneParticles } from "./SceneParticles";
 import "./PerfumeBottleScene.css";
@@ -26,11 +28,27 @@ export function PerfumeBottleScene({
   const reducedMotion = useReducedMotion();
   const particleCount = reducedMotion ? 0 : isMobile ? 18 : 55;
 
+  // Check the GLB actually exists before ever touching the GLTFLoader —
+  // a missing file degrades straight to the CSS fallback with a clean
+  // console instead of a loader-logged 404 + thrown/caught error.
+  const modelAvailability = useAssetAvailable(MODEL_PATH);
+
+  if (modelAvailability !== "available") {
+    return (
+      <div className={`bottle-scene ${className}`.trim()}>
+        <BottleFallback
+          progressRef={progressRef}
+          reason={modelAvailability === "missing" ? "public/models/perfume-bottle.glb not found" : undefined}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className={`bottle-scene ${className}`.trim()}>
       <ErrorBoundary
         label="Perfume bottle 3D scene"
-        fallback={<BottleFallback reason="GLB missing or WebGL unavailable" />}
+        fallback={<BottleFallback progressRef={progressRef} reason="GLB failed to parse or WebGL unavailable" />}
       >
         <Canvas
           dpr={[1, isMobile ? 1.5 : 2]}

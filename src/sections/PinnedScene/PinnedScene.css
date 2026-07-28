@@ -1,7 +1,7 @@
 .pinned {
   position: relative;
   height: 320vh;
-  background: var(--color-bg);
+  background: radial-gradient(120% 70% at 25% 35%, #17130f 0%, var(--color-bg) 60%);
 }
 
 .pinned__viewport {
@@ -36,6 +36,59 @@
 .pinned__stage {
   position: relative;
   height: clamp(320px, 46vw, 560px);
+}
+
+.pinned__orbit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pinned__orbit-item {
+  position: absolute;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-grey-beige);
+  opacity: 0;
+  filter: blur(4px);
+  transform: scale(0.9);
+  transition: opacity 0.8s var(--ease-lux), filter 0.8s var(--ease-lux),
+    transform 0.8s var(--ease-lux), color 0.8s var(--ease-lux);
+}
+
+.pinned__orbit-item--active {
+  opacity: 0.85;
+  filter: blur(0px);
+  transform: scale(1);
+  color: var(--color-gold);
+}
+
+.pinned__orbit-item--tl {
+  top: 6%;
+  left: -4%;
+}
+
+.pinned__orbit-item--tr {
+  top: 6%;
+  right: -4%;
+}
+
+.pinned__orbit-item--bl {
+  bottom: 8%;
+  left: -6%;
+}
+
+.pinned__orbit-item--br {
+  bottom: 8%;
+  right: -6%;
+}
+
+@media (max-width: 900px) {
+  .pinned__orbit-item {
+    display: none;
+  }
 }
 
 .pinned__copy {

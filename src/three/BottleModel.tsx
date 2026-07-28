@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-const MODEL_PATH = "/models/perfume-bottle.glb";
+export const MODEL_PATH = "/models/perfume-bottle.glb";
 const GOLD_NAME_RE = /cap|lid|top|gold|metal|cork/i;
 const TARGET_HEIGHT = 2.4;
 

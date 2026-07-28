@@ -13,6 +13,16 @@
   gap: clamp(20px, 2.6vw, 32px);
 }
 
+@media (min-width: 901px) {
+  .collection__grid > *:nth-child(1) {
+    margin-top: 44px;
+  }
+
+  .collection__grid > *:nth-child(3) {
+    margin-top: 22px;
+  }
+}
+
 @media (max-width: 900px) {
   .collection__grid {
     grid-template-columns: 1fr;

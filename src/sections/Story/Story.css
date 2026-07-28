@@ -6,15 +6,28 @@
 
 .story__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.86fr 1.14fr;
   align-items: center;
   gap: clamp(40px, 6vw, 96px);
 }
 
 .story__copy {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 26px;
+}
+
+.story__index {
+  position: absolute;
+  top: -0.3em;
+  left: -0.05em;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 14vw, 11rem);
+  line-height: 1;
+  color: rgba(244, 238, 229, 0.04);
+  user-select: none;
 }
 
 .story__title {
@@ -41,6 +54,7 @@
 .story__visual {
   position: relative;
   height: clamp(320px, 40vw, 520px);
+  margin-top: clamp(0px, 4vw, 56px);
   border-radius: 6px;
   overflow: hidden;
   clip-path: inset(0 0 100% 0);
@@ -95,5 +109,10 @@
 
   .story__visual {
     order: -1;
+    margin-top: 0;
+  }
+
+  .story__index {
+    display: none;
   }
 }

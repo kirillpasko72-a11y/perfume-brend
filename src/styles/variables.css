@@ -17,7 +17,7 @@
   /* Layout */
   --container-max: 1400px;
   --gutter: clamp(20px, 5vw, 72px);
-  --section-space: clamp(96px, 14vw, 220px);
+  --section-space: clamp(72px, 9vw, 152px);
 
   /* Motion */
   --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);

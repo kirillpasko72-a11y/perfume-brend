@@ -48,6 +48,7 @@ export function Notes() {
             eyebrow="Composition"
             title="The architecture of scent"
             description="Four notes, one signature. Every NOIRÉ fragrance is built from the same quiet vocabulary."
+            center
           />
         </div>
 

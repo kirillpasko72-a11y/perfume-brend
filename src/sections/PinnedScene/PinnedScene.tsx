@@ -9,6 +9,7 @@ interface Phase {
   title: string;
   text: string;
   chip: string;
+  orbit: "tl" | "tr" | "bl" | "br";
 }
 
 const PHASES: Phase[] = [
@@ -17,24 +18,28 @@ const PHASES: Phase[] = [
     title: "The Opening",
     text: "Bergamot cuts through first — bright, citrus, alive. The bottle turns to catch the light.",
     chip: "Bergamot",
+    orbit: "tl",
   },
   {
     index: "02 / 04",
     title: "The Heart",
     text: "Iris settles in, powdery and composed. The silhouette softens as the light warms.",
     chip: "Iris",
+    orbit: "tr",
   },
   {
     index: "03 / 04",
     title: "The Base",
     text: "Cedar gives the structure its spine — dry, resinous, architectural.",
     chip: "Cedar",
+    orbit: "bl",
   },
   {
     index: "04 / 04",
     title: "The Signature",
     text: "Amber lingers longest. What began as light closes as memory.",
     chip: "Amber",
+    orbit: "br",
   },
 ];
 
@@ -86,6 +91,18 @@ export function PinnedScene() {
         <div className="container pinned__inner">
           <div className="pinned__stage">
             <LazyPerfumeBottleScene progressRef={reducedMotion ? undefined : progressRef} />
+            <div className="pinned__orbit" aria-hidden="true">
+              {PHASES.map((phase, i) => (
+                <span
+                  key={phase.chip}
+                  className={`pinned__orbit-item pinned__orbit-item--${phase.orbit}${
+                    i <= phaseIndex ? " pinned__orbit-item--active" : ""
+                  }`}
+                >
+                  {phase.chip}
+                </span>
+              ))}
+            </div>
           </div>
 
           <div className="pinned__copy">
