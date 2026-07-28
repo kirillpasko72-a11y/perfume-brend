@@ -8,6 +8,9 @@ interface BottleFallbackProps {
    * progress instead of the idle CSS spin — mirrors the real 3D scene's
    * scroll-linked rotation in the pinned section. */
   progressRef?: MutableRefObject<number>;
+  /** Renders at a much larger scale, for a hero treatment where the
+   * bottle is the dominant visual rather than a supporting object. */
+  large?: boolean;
 }
 
 /**
@@ -17,7 +20,7 @@ interface BottleFallbackProps {
  * WebGL is unavailable or the GLB model fails to load, so the hero and
  * pinned sections never show a blank canvas.
  */
-export function BottleFallback({ reason, progressRef }: BottleFallbackProps) {
+export function BottleFallback({ reason, progressRef, large }: BottleFallbackProps) {
   const stageRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
 
@@ -49,7 +52,7 @@ export function BottleFallback({ reason, progressRef }: BottleFallbackProps) {
   return (
     <div className="bottle-fallback">
       <div className="bottle-fallback__glow" aria-hidden="true" />
-      <div className="bottle-fallback__float">
+      <div className={`bottle-fallback__float${large ? " bottle-fallback__float--large" : ""}`}>
         <div className={stageClass} ref={stageRef} role="img" aria-label="NOIRÉ perfume bottle">
           <div className="bottle-fallback__cap">
             <span className="bottle-fallback__cap-face bottle-fallback__cap-face--back" />

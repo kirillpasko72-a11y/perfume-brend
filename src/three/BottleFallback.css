@@ -18,6 +18,11 @@
   animation: bottle-float 5s ease-in-out infinite;
 }
 
+.bottle-fallback__float--large {
+  --bottle-w: clamp(260px, 30vw, 460px);
+  height: clamp(460px, 62vh, 800px);
+}
+
 .bottle-fallback__stage {
   position: relative;
   width: 100%;

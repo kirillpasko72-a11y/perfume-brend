@@ -218,7 +218,18 @@ export function Hero() {
         <span className="hero__line-label">Collection N&deg;I — Est. 2018</span>
       </div>
 
-      <div className="container hero__inner">
+      <div className="hero__stage" ref={stageRef}>
+        <div className="hero__ticks" ref={ticksRef} aria-hidden="true">
+          <span className="hero__tick hero__tick--tl" />
+          <span className="hero__tick hero__tick--br" />
+        </div>
+        <LazyPerfumeBottleScene scale={1.7} className="hero__scene" />
+        <div className="hero__sheen" ref={sheenRef} aria-hidden="true" />
+      </div>
+
+      <div className="hero__scrim" aria-hidden="true" />
+
+      <div className="container hero__overlay">
         <div className="hero__copy" ref={copyRef}>
           <span className="eyebrow hero__mark" ref={markRef}>
             NOIRÉ — Maison de Parfum
@@ -254,15 +265,6 @@ export function Hero() {
               </a>
             ))}
           </div>
-        </div>
-
-        <div className="hero__stage" ref={stageRef}>
-          <div className="hero__ticks" ref={ticksRef} aria-hidden="true">
-            <span className="hero__tick hero__tick--tl" />
-            <span className="hero__tick hero__tick--br" />
-          </div>
-          <LazyPerfumeBottleScene />
-          <div className="hero__sheen" ref={sheenRef} aria-hidden="true" />
         </div>
       </div>
 

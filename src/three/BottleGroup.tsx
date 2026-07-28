@@ -8,6 +8,7 @@ interface BottleGroupProps {
   autoRotate: boolean;
   pointerParallax: boolean;
   reducedMotion: boolean;
+  scale?: number;
 }
 
 export function BottleGroup({
@@ -15,6 +16,7 @@ export function BottleGroup({
   autoRotate,
   pointerParallax,
   reducedMotion,
+  scale = 1,
 }: BottleGroupProps) {
   const groupRef = useRef<Group>(null);
   const tiltRef = useRef<Group>(null);
@@ -46,7 +48,7 @@ export function BottleGroup({
     <group ref={groupRef}>
       <group ref={tiltRef}>
         <Suspense fallback={null}>
-          <BottleModel />
+          <BottleModel scale={scale} />
         </Suspense>
       </group>
     </group>

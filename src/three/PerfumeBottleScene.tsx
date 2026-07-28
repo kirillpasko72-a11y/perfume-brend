@@ -1,7 +1,7 @@
 import { Suspense, type MutableRefObject } from "react";
 import { Canvas } from "@react-three/fiber";
 import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
-import { useIsMobile } from "@/hooks/useMediaQuery";
+import { useIsMobile, useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useAssetAvailable } from "@/hooks/useAssetAvailable";
 import { BottleFallback } from "./BottleFallback";
@@ -17,14 +17,24 @@ interface PerfumeBottleSceneProps {
    * warmth. Omit for idle auto-rotate with a static warm light. */
   progressRef?: MutableRefObject<number>;
   pointerParallax?: boolean;
+  /** Apparent size multiplier for the 3D model. Use >1 when the bottle is
+   * meant to dominate the frame rather than sit as a supporting object. */
+  scale?: number;
 }
 
 export function PerfumeBottleScene({
   className = "",
   progressRef,
   pointerParallax = true,
+  scale = 1,
 }: PerfumeBottleSceneProps) {
   const isMobile = useIsMobile();
+  // The Hero's full-bleed "large" treatment only has room at the same
+  // 1024px breakpoint its own layout switches at — using the (narrower)
+  // isMobile threshold here would leave a tablet-width gap where the
+  // container goes back to a normal contained box but the bottle still
+  // renders at full "large" size and overflows it.
+  const isCompact = useMediaQuery("(max-width: 1024px)");
   const reducedMotion = useReducedMotion();
   const particleCount = reducedMotion ? 0 : isMobile ? 18 : 55;
 
@@ -38,6 +48,7 @@ export function PerfumeBottleScene({
       <div className={`bottle-scene ${className}`.trim()}>
         <BottleFallback
           progressRef={progressRef}
+          large={scale > 1 && !isCompact}
           reason={modelAvailability === "missing" ? "public/models/perfume-bottle.glb not found" : undefined}
         />
       </div>
@@ -48,7 +59,9 @@ export function PerfumeBottleScene({
     <div className={`bottle-scene ${className}`.trim()}>
       <ErrorBoundary
         label="Perfume bottle 3D scene"
-        fallback={<BottleFallback progressRef={progressRef} reason="GLB failed to parse or WebGL unavailable" />}
+        fallback={
+          <BottleFallback progressRef={progressRef} large={scale > 1 && !isCompact} reason="GLB failed to parse or WebGL unavailable" />
+        }
       >
         <Canvas
           dpr={[1, isMobile ? 1.5 : 2]}
@@ -63,6 +76,7 @@ export function PerfumeBottleScene({
               autoRotate={!progressRef}
               pointerParallax={pointerParallax && !isMobile}
               reducedMotion={reducedMotion}
+              scale={isCompact ? 1 : scale}
             />
             <SceneParticles count={particleCount} />
           </Suspense>

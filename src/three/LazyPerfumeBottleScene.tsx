@@ -8,6 +8,7 @@ interface LazyPerfumeBottleSceneProps {
   className?: string;
   progressRef?: MutableRefObject<number>;
   pointerParallax?: boolean;
+  scale?: number;
 }
 
 /** Code-splits the three.js/R3F/drei bundle out of the main chunk. While it

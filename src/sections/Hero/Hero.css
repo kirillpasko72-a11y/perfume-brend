@@ -55,7 +55,7 @@
   user-select: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .hero__watermark {
     display: none;
   }
@@ -67,7 +67,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 3;
   pointer-events: none;
 }
 
@@ -107,13 +107,12 @@
   }
 }
 
-.hero__inner {
+.hero__overlay {
   position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  z-index: 3;
+  display: flex;
   align-items: center;
-  gap: clamp(24px, 4vw, 64px);
+  height: 100%;
   width: 100%;
 }
 
@@ -122,6 +121,25 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 28px;
+  max-width: 620px;
+}
+
+/* Legibility scrim: the bottle scene is a full-bleed background now, so a
+   soft dark-to-clear gradient keeps the overlaid copy readable on the left
+   while leaving the bottle itself unobscured on the right — the same
+   trick real photographic heroes use under overlaid text. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(13, 11, 11, 0.94) 0%,
+    rgba(13, 11, 11, 0.7) 32%,
+    rgba(13, 11, 11, 0.28) 56%,
+    transparent 78%
+  );
 }
 
 .hero__mark {
@@ -235,14 +253,19 @@
 }
 
 .hero__stage {
-  position: relative;
-  height: clamp(400px, 54vw, 660px);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   opacity: 0;
+}
+
+.hero__scene {
+  transform: translateX(11%);
 }
 
 .hero__ticks {
   position: absolute;
-  inset: -18px;
+  inset: clamp(20px, 3vw, 40px);
   z-index: 1;
   pointer-events: none;
   opacity: 0;
@@ -347,18 +370,17 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .hero {
+    flex-direction: column;
     padding-bottom: 64px;
-  }
-
-  .hero__inner {
-    grid-template-columns: 1fr;
   }
 
   .hero__copy {
     align-items: center;
     text-align: center;
+    width: 100%;
+    max-width: 100%;
   }
 
   .hero__title .hero__line-inner {
@@ -377,9 +399,26 @@
     text-align: left;
   }
 
+  /* Full-bleed background-photo treatment only works with room to spare;
+     on mobile the stage goes back to a normal, contained block sitting
+     above the copy, and the legibility scrim isn't needed. */
   .hero__stage {
-    order: -1;
+    position: relative;
+    inset: auto;
     height: clamp(260px, 70vw, 420px);
+    width: 100%;
+  }
+
+  .hero__scene {
+    transform: none;
+  }
+
+  .hero__scrim {
+    display: none;
+  }
+
+  .hero__overlay {
+    height: auto;
   }
 
   /* Hero content is taller than one screen on mobile, so a viewport-pinned
