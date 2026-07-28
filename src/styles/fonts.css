@@ -1,0 +1,27 @@
+/* Self-hosted variable fonts (SIL OFL) — no runtime CDN dependency.
+   Each file covers its whole weight range via font-variation-settings,
+   so one @font-face per style block is enough. */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-normal.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-italic.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}

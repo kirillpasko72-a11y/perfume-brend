@@ -9,10 +9,15 @@
 
   --color-gold-soft: rgba(217, 185, 130, 0.35);
   --color-gold-faint: rgba(217, 185, 130, 0.12);
+  /* Darker bronze for accent text on light section backgrounds, where
+     --color-gold itself would fail contrast against cream. */
+  --color-gold-ink: #6b4d24;
+  --color-ink: #16130f;
+  --color-ink-soft: rgba(22, 19, 15, 0.66);
 
   /* Type */
-  --font-display: "Times New Roman", "Iowan Old Style", "Georgia", serif;
-  --font-body: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: "Fraunces", "Iowan Old Style", "Georgia", serif;
+  --font-body: "Manrope", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
 
   /* Layout */
   --container-max: 1400px;

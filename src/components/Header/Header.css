@@ -4,46 +4,53 @@
   left: 0;
   right: 0;
   z-index: 60;
-  height: var(--header-h);
   display: flex;
-  align-items: center;
-  background: transparent;
-  transition: background 0.5s var(--ease-soft), backdrop-filter 0.5s var(--ease-soft),
-    border-color 0.5s var(--ease-soft), height 0.4s var(--ease-soft);
-  border-bottom: 1px solid transparent;
-}
-
-.header--scrolled {
-  background: rgba(13, 11, 11, 0.78);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border-bottom: 1px solid rgba(217, 185, 130, 0.16);
+  justify-content: center;
+  padding: 14px var(--gutter) 0;
+  pointer-events: none;
 }
 
 .header__inner {
-  width: 100%;
+  pointer-events: auto;
+  width: min(100%, 1180px);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
+  padding: 10px 10px 10px 26px;
+  border-radius: 999px;
+  background: rgba(23, 19, 19, 0.5);
+  border: 1px solid rgba(217, 185, 130, 0.14);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+  transition: background 0.5s var(--ease-soft), border-color 0.5s var(--ease-soft),
+    box-shadow 0.5s var(--ease-soft);
+}
+
+.header--scrolled .header__inner {
+  background: rgba(13, 11, 11, 0.82);
+  border-color: rgba(217, 185, 130, 0.3);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.42);
 }
 
 .header__logo {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  letter-spacing: 0.18em;
+  font-size: 1.2rem;
+  letter-spacing: 0.16em;
   color: var(--color-cream);
 }
 
 .header__nav {
   display: flex;
   align-items: center;
-  gap: clamp(24px, 3vw, 48px);
+  gap: clamp(20px, 2.6vw, 40px);
 }
 
 .header__link {
   position: relative;
-  font-size: 0.76rem;
-  letter-spacing: 0.2em;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-grey-beige);
   padding-block: 4px;
@@ -73,15 +80,24 @@
 .header__actions {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 20px;
 }
 
 .header__burger {
   display: none;
   color: var(--color-cream);
+  padding: 6px;
 }
 
 @media (max-width: 860px) {
+  .header {
+    padding-inline: 16px;
+  }
+
+  .header__inner {
+    padding: 8px 8px 8px 20px;
+  }
+
   .header__nav {
     display: none;
   }

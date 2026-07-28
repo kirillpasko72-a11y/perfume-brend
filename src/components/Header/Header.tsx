@@ -31,7 +31,7 @@ export function Header() {
 
   return (
     <header className={`header${scrolled ? " header--scrolled" : ""}`}>
-      <div className="container header__inner">
+      <div className="header__inner">
         <a href="#top" className="header__logo" data-cursor="link">
           NOIRÉ
         </a>

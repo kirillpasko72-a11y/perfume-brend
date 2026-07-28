@@ -73,7 +73,7 @@ export function Story() {
   }, [reducedMotion]);
 
   return (
-    <section id="story" className="story section-pad" ref={sectionRef}>
+    <section id="story" className="story story--light section-pad" ref={sectionRef}>
       <div className="container story__grid">
         <div className="story__copy">
           <span className="story__index" aria-hidden="true">01</span>

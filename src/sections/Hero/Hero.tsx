@@ -5,6 +5,7 @@ import { MagneticButton } from "@/components/MagneticButton/MagneticButton";
 import { ensureGsapRegistered, gsap, ScrollTrigger } from "@/lib/gsap";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useIsTouch } from "@/hooks/useMediaQuery";
+import { fragrances } from "@/data/fragrances";
 import "./Hero.css";
 
 function KineticLine({
@@ -243,12 +244,15 @@ export function Hero() {
             </MagneticButton>
           </div>
 
-          <div className="hero__meta" ref={metaRef}>
-            <span className="hero__meta-item">01–03</span>
-            <span className="hero__meta-divider" aria-hidden="true" />
-            <span className="hero__meta-item">Three signature scents</span>
-            <span className="hero__meta-divider" aria-hidden="true" />
-            <span className="hero__meta-item">Hand-poured in small batches</span>
+          <div className="hero__rows" ref={metaRef}>
+            {fragrances.map((f, i) => (
+              <a key={f.id} href="#collection" className="hero__row">
+                <span className="hero__row-index">0{i + 1}</span>
+                <span className="hero__row-divider" aria-hidden="true">/</span>
+                <span className="hero__row-label">{f.name}</span>
+                <ArrowRight size={14} className="hero__row-arrow" aria-hidden="true" />
+              </a>
+            ))}
           </div>
         </div>
 

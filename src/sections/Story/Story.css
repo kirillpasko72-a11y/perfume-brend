@@ -4,6 +4,30 @@
   overflow: hidden;
 }
 
+/* A deliberate light/dark contrast break: the surrounding sections stay
+   dark, this one flips to cream so the page has a genuine tonal pause
+   instead of one unbroken dark field. The visual panel keeps its own dark
+   treatment, reading as a "window" set into the light page. */
+.story--light {
+  background: var(--color-cream);
+}
+
+.story--light .eyebrow {
+  color: var(--color-gold-ink);
+}
+
+.story--light .story__title {
+  color: var(--color-ink);
+}
+
+.story--light .story__paragraph {
+  color: var(--color-ink-soft);
+}
+
+.story--light .story__index {
+  color: rgba(22, 19, 15, 0.05);
+}
+
 .story__grid {
   display: grid;
   grid-template-columns: 0.86fr 1.14fr;
