@@ -2,9 +2,11 @@ import { useRef, useState, type PointerEvent } from "react";
 import { Check, Plus } from "lucide-react";
 import { fragrances } from "@/data/fragrances";
 import { SectionHeading } from "@/components/SectionHeading/SectionHeading";
+import { LazyPerfumeBottleScene } from "@/three/LazyPerfumeBottleScene";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useIsTouch } from "@/hooks/useMediaQuery";
+import { useInView } from "@/hooks/useInView";
 import type { Fragrance } from "@/types";
 import "./Collection.css";
 
@@ -20,6 +22,7 @@ function FragranceCard({
   tiltDisabled: boolean;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const { ref: vesselRef, inView } = useInView<HTMLDivElement>();
 
   const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     if (tiltDisabled) return;
@@ -47,10 +50,8 @@ function FragranceCard({
       onPointerLeave={handlePointerLeave}
     >
       <div className="fragrance-card__glow" aria-hidden="true" />
-      <div className="fragrance-card__vessel">
-        <div className={`fragrance-card__glass fragrance-card__glass--${fragrance.tone}`}>
-          <span className="fragrance-card__cap" />
-        </div>
+      <div className="fragrance-card__vessel" ref={vesselRef}>
+        {inView && <LazyPerfumeBottleScene tone={fragrance.tone} compact />}
       </div>
 
       <span className="fragrance-card__code">{fragrance.code}</span>

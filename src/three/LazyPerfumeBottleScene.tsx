@@ -1,4 +1,5 @@
 import { lazy, Suspense, type MutableRefObject } from "react";
+import type { BottleTone } from "@/types";
 
 const PerfumeBottleScene = lazy(() =>
   import("./PerfumeBottleScene").then((m) => ({ default: m.PerfumeBottleScene }))
@@ -9,6 +10,8 @@ interface LazyPerfumeBottleSceneProps {
   progressRef?: MutableRefObject<number>;
   pointerParallax?: boolean;
   scale?: number;
+  tone?: BottleTone;
+  compact?: boolean;
 }
 
 /** Code-splits the three.js/R3F/drei bundle out of the main chunk. While it

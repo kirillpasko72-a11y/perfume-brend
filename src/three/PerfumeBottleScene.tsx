@@ -4,6 +4,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
 import { useIsMobile, useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useAssetAvailable } from "@/hooks/useAssetAvailable";
+import type { BottleTone } from "@/types";
 import { BottleFallback } from "./BottleFallback";
 import { BottleGroup } from "./BottleGroup";
 import { MODEL_PATH } from "./BottleModel";
@@ -20,6 +21,11 @@ interface PerfumeBottleSceneProps {
   /** Apparent size multiplier for the 3D model. Use >1 when the bottle is
    * meant to dominate the frame rather than sit as a supporting object. */
   scale?: number;
+  /** Tints the glass/liquid to match a specific fragrance. */
+  tone?: BottleTone;
+  /** Strips particles/contact-shadows regardless of viewport — for small,
+   * card-sized previews where several scenes render at once. */
+  compact?: boolean;
 }
 
 export function PerfumeBottleScene({
@@ -27,6 +33,8 @@ export function PerfumeBottleScene({
   progressRef,
   pointerParallax = true,
   scale = 1,
+  tone,
+  compact = false,
 }: PerfumeBottleSceneProps) {
   const isMobile = useIsMobile();
   // The Hero's full-bleed "large" treatment only has room at the same
@@ -34,9 +42,10 @@ export function PerfumeBottleScene({
   // isMobile threshold here would leave a tablet-width gap where the
   // container goes back to a normal contained box but the bottle still
   // renders at full "large" size and overflows it.
-  const isCompact = useMediaQuery("(max-width: 1024px)");
+  const isNarrowViewport = useMediaQuery("(max-width: 1024px)");
   const reducedMotion = useReducedMotion();
-  const particleCount = reducedMotion ? 0 : isMobile ? 18 : 55;
+  const particleCount = compact || reducedMotion ? 0 : isMobile ? 18 : 55;
+  const useContactShadow = !compact && !isMobile;
 
   // Check the GLB actually exists before ever touching the GLTFLoader —
   // a missing file degrades straight to the CSS fallback with a clean
@@ -48,7 +57,8 @@ export function PerfumeBottleScene({
       <div className={`bottle-scene ${className}`.trim()}>
         <BottleFallback
           progressRef={progressRef}
-          large={scale > 1 && !isCompact}
+          large={scale > 1 && !isNarrowViewport}
+          tone={tone}
           reason={modelAvailability === "missing" ? "public/models/perfume-bottle.glb not found" : undefined}
         />
       </div>
@@ -60,23 +70,29 @@ export function PerfumeBottleScene({
       <ErrorBoundary
         label="Perfume bottle 3D scene"
         fallback={
-          <BottleFallback progressRef={progressRef} large={scale > 1 && !isCompact} reason="GLB failed to parse or WebGL unavailable" />
+          <BottleFallback
+            progressRef={progressRef}
+            large={scale > 1 && !isNarrowViewport}
+            tone={tone}
+            reason="GLB failed to parse or WebGL unavailable"
+          />
         }
       >
         <Canvas
-          dpr={[1, isMobile ? 1.5 : 2]}
+          dpr={[1, isMobile || compact ? 1.5 : 2]}
           gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
           camera={{ position: [0, 0.3, 4.4], fov: 30 }}
-          shadows={!isMobile}
+          shadows={useContactShadow}
         >
           <Suspense fallback={null}>
-            <SceneLights progressRef={progressRef} contactShadow={!isMobile} />
+            <SceneLights progressRef={progressRef} contactShadow={useContactShadow} />
             <BottleGroup
               progressRef={progressRef}
               autoRotate={!progressRef}
-              pointerParallax={pointerParallax && !isMobile}
+              pointerParallax={pointerParallax && !isMobile && !compact}
               reducedMotion={reducedMotion}
-              scale={isCompact ? 1 : scale}
+              scale={isNarrowViewport ? 1 : scale}
+              tone={tone}
             />
             <SceneParticles count={particleCount} />
           </Suspense>

@@ -1,10 +1,17 @@
 import { useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
+import type { BottleTone } from "@/types";
 
 export const MODEL_PATH = "/models/perfume-bottle.glb";
 const GOLD_NAME_RE = /cap|lid|top|gold|metal|cork/i;
 const TARGET_HEIGHT = 2.4;
+
+const GLASS_TINTS: Record<BottleTone, string> = {
+  iris: "#f4eee5",
+  smoke: "#a89f97",
+  cedar: "#c4c7bd",
+};
 
 /**
  * Loads the local perfume bottle GLB and normalises it: centers the mesh at
@@ -13,7 +20,7 @@ const TARGET_HEIGHT = 2.4;
  * name heuristics. Throws (via useGLTF's suspense loader) when the file is
  * missing or fails to parse — the caller wraps this in an ErrorBoundary.
  */
-export function BottleModel({ scale = 1 }: { scale?: number }) {
+export function BottleModel({ scale = 1, tone = "iris" }: { scale?: number; tone?: BottleTone }) {
   const { scene } = useGLTF(MODEL_PATH);
 
   const prepared = useMemo(() => {
@@ -35,7 +42,7 @@ export function BottleModel({ scale = 1 }: { scale?: number }) {
         });
       } else {
         mesh.material = new THREE.MeshPhysicalMaterial({
-          color: "#f4eee5",
+          color: GLASS_TINTS[tone],
           transmission: 0.94,
           thickness: 1.3,
           roughness: 0.04,
@@ -63,7 +70,7 @@ export function BottleModel({ scale = 1 }: { scale?: number }) {
     group.add(clone);
 
     return group;
-  }, [scene]);
+  }, [scene, tone]);
 
   return <primitive object={prepared} scale={scale} />;
 }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, type MutableRefObject } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import type { BottleTone } from "@/types";
 import "./BottleFallback.css";
 
 interface BottleFallbackProps {
@@ -11,6 +12,9 @@ interface BottleFallbackProps {
   /** Renders at a much larger scale, for a hero treatment where the
    * bottle is the dominant visual rather than a supporting object. */
   large?: boolean;
+  /** Tints the liquid to match a specific fragrance. Defaults to the
+   * signature warm gold (the "iris" tone). */
+  tone?: BottleTone;
 }
 
 /**
@@ -20,7 +24,7 @@ interface BottleFallbackProps {
  * WebGL is unavailable or the GLB model fails to load, so the hero and
  * pinned sections never show a blank canvas.
  */
-export function BottleFallback({ reason, progressRef, large }: BottleFallbackProps) {
+export function BottleFallback({ reason, progressRef, large, tone }: BottleFallbackProps) {
   const stageRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
 
@@ -49,8 +53,10 @@ export function BottleFallback({ reason, progressRef, large }: BottleFallbackPro
 
   const stageClass = `bottle-fallback__stage${progressRef ? " bottle-fallback__stage--driven" : ""}`;
 
+  const toneClass = tone && tone !== "iris" ? ` bottle-fallback--tone-${tone}` : "";
+
   return (
-    <div className="bottle-fallback">
+    <div className={`bottle-fallback${toneClass}`}>
       <div className="bottle-fallback__glow" aria-hidden="true" />
       <div className={`bottle-fallback__float${large ? " bottle-fallback__float--large" : ""}`}>
         <div className={stageClass} ref={stageRef} role="img" aria-label="NOIRÉ perfume bottle">

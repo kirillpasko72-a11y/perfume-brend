@@ -1,6 +1,7 @@
 import { Suspense, useRef, type MutableRefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import type { Group } from "three";
+import type { BottleTone } from "@/types";
 import { BottleModel } from "./BottleModel";
 
 interface BottleGroupProps {
@@ -9,6 +10,7 @@ interface BottleGroupProps {
   pointerParallax: boolean;
   reducedMotion: boolean;
   scale?: number;
+  tone?: BottleTone;
 }
 
 export function BottleGroup({
@@ -17,6 +19,7 @@ export function BottleGroup({
   pointerParallax,
   reducedMotion,
   scale = 1,
+  tone,
 }: BottleGroupProps) {
   const groupRef = useRef<Group>(null);
   const tiltRef = useRef<Group>(null);
@@ -48,7 +51,7 @@ export function BottleGroup({
     <group ref={groupRef}>
       <group ref={tiltRef}>
         <Suspense fallback={null}>
-          <BottleModel scale={scale} />
+          <BottleModel scale={scale} tone={tone} />
         </Suspense>
       </group>
     </group>
