@@ -1,53 +1,71 @@
 .preloader {
   position: fixed;
   inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-bg);
+  z-index: var(--z-preloader);
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.preloader--leaving {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .preloader__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 1.1rem;
+  text-align: center;
+  padding: 1rem;
 }
 
-.preloader__mark {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 7vw, 3.6rem);
-  letter-spacing: 0.16em;
-  color: var(--color-cream);
-  filter: blur(14px);
-  opacity: 0;
-  transform: scale(1.08);
+.preloader__logo {
+  animation: preloader-bounce 0.9s ease-in-out infinite;
+}
+
+@keyframes preloader-bounce {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-16px) rotate(4deg); }
+}
+
+.preloader__word {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.preloader__word span {
+  color: var(--lime);
 }
 
 .preloader__bar {
-  width: clamp(160px, 24vw, 260px);
-  height: 1px;
-  background: rgba(244, 238, 229, 0.12);
+  width: min(280px, 70vw);
+  height: 14px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 2px solid var(--line);
   overflow: hidden;
-  position: relative;
 }
 
 .preloader__bar-fill {
-  position: absolute;
-  inset: 0;
-  width: 0%;
-  background: linear-gradient(
-    90deg,
-    var(--color-gold-dark),
-    var(--color-gold)
-  );
-  box-shadow: 0 0 12px var(--color-gold-soft);
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--lime), var(--cyan));
+  animation: preloader-fill 2.6s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
 }
 
-.preloader__percent {
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  letter-spacing: 0.3em;
-  color: var(--color-grey-beige);
+@keyframes preloader-fill {
+  0% { width: 2%; }
+  55% { width: 63%; }
+  75% { width: 71%; }
+  100% { width: 100%; }
+}
+
+.preloader__line {
+  color: var(--muted);
+  font-weight: 700;
+  min-height: 1.5em;
 }

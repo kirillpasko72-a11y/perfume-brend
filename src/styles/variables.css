@@ -1,43 +1,44 @@
 :root {
-  /* Palette */
-  --color-bg: #0d0b0b;
-  --color-bg-alt: #171313;
-  --color-cream: #f4eee5;
-  --color-gold: #d9b982;
-  --color-gold-dark: #8c6a39;
-  --color-grey-beige: #aaa19a;
+  /* palette */
+  --bg: #10101f;
+  --bg-alt: #17172b;
+  --card: #1d1d33;
+  --card-raised: #24243f;
+  --line: #31314f;
 
-  --color-gold-soft: rgba(217, 185, 130, 0.35);
-  --color-gold-faint: rgba(217, 185, 130, 0.12);
-  /* Darker bronze for accent text on light section backgrounds, where
-     --color-gold itself would fail contrast against cream. */
-  --color-gold-ink: #6b4d24;
-  --color-ink: #16130f;
-  --color-ink-soft: rgba(22, 19, 15, 0.66);
+  --lime: #8ef02e;
+  --lime-dark: #56a30f;
+  --lime-soft: rgba(142, 240, 46, 0.14);
 
-  /* Type */
-  --font-display: "Fraunces", "Iowan Old Style", "Georgia", serif;
-  --font-body: "Manrope", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --magenta: #ff4fd8;
+  --magenta-dark: #b32a94;
+  --cyan: #3ed8ff;
+  --cyan-dark: #1793b5;
+  --gold: #ffb020;
+  --gold-dark: #b87708;
+  --red: #ff4b4b;
+  --red-dark: #b02323;
+  --purple: #a06bff;
+  --purple-dark: #6a3ed1;
 
-  /* Layout */
-  --container-max: 1400px;
-  --gutter: clamp(20px, 5vw, 72px);
-  --section-space: clamp(72px, 9vw, 152px);
+  --text: #f4f6ff;
+  --muted: #9aa0c3;
 
-  /* Motion */
-  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-fast: 0.35s;
-  --dur-med: 0.7s;
-  --dur-slow: 1.4s;
+  /* shape */
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-lg: 26px;
 
-  --header-h: 88px;
+  /* type */
+  --font:
+    "Nunito", "Segoe UI Rounded", ui-rounded, -apple-system, "SF Pro Rounded",
+    "Segoe UI", system-ui, sans-serif;
+  --font-meme: "Impact", "Arial Black", "Haettenschweiler", sans-serif;
 
-  color-scheme: dark;
-}
-
-@media (max-width: 768px) {
-  :root {
-    --header-h: 72px;
-  }
+  /* z-index map */
+  --z-hud: 40;
+  --z-overlay: 80;
+  --z-donkey: 90;
+  --z-toast: 100;
+  --z-preloader: 120;
 }

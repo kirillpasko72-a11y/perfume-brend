@@ -21,7 +21,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (import.meta.env.DEV) {
       // eslint-disable-next-line no-console
       console.warn(
-        `[NOIRÉ] ${this.props.label ?? "Component"} failed to render, falling back:`,
+        `[LingoGoose] ${this.props.label ?? "Component"} failed to render, falling back:`,
         error,
         info.componentStack
       );

@@ -1,0 +1,68 @@
+.donkey {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-donkey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: donkey-in 0.25s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+@keyframes donkey-in {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.donkey__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 35%, rgba(180, 10, 10, 0.55) 100%),
+    rgba(20, 0, 0, 0.55);
+  animation: donkey-alarm 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes donkey-alarm {
+  from { opacity: 0.75; }
+  to { opacity: 1; }
+}
+
+.donkey__flash {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 40, 40, 0.35);
+  animation: donkey-flash 0.4s ease-out forwards;
+}
+
+@keyframes donkey-flash {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.donkey__scene {
+  position: relative;
+  width: min(560px, 92vw);
+  height: min(46vh, 420px);
+}
+
+.donkey__verdict {
+  position: relative;
+  font-size: clamp(2.2rem, 7vw, 4rem);
+  animation: donkey-stamp 0.35s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+
+@keyframes donkey-stamp {
+  from { transform: scale(3) rotate(8deg); opacity: 0; }
+  to { transform: scale(1) rotate(-2deg); opacity: 1; }
+}
+
+.donkey__caption {
+  position: relative;
+  margin-top: 0.4rem;
+  font-size: clamp(1.1rem, 3.4vw, 1.7rem);
+  max-width: min(640px, 90vw);
+  text-align: center;
+  animation: pop-in 0.4s 0.1s both;
+}

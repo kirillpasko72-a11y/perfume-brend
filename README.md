@@ -1,121 +1,75 @@
-# NOIRÉ — Maison de Parfum
+# 🪿 LingoGoose — учи языки, или гусь придёт
 
-A cinematic, production-ready marketing site for a fictional premium
-perfume house, built as a proper React + TypeScript application (not a
-single-file demo).
+Пародийный Duolingo-стиль сайт для изучения языков: мемы, угрозы,
+3D-персонажи и **осёл, стреляющий лазерами из глаз**, когда ты ошибаешься.
+Полноценное React + TypeScript приложение, весь 3D — процедурный
+(three.js / react-three-fiber), без единой внешней модели или картинки.
 
-## Stack
+## Что внутри
 
-- Vite + React + TypeScript
-- Plain CSS per component/section (scoped by class-name prefixes)
-- [`motion`](https://motion.dev) for the mobile menu and small UI transitions
-- GSAP + ScrollTrigger for reveal, parallax, and the pinned 3D scroll scene
-- `three` + `@react-three/fiber` + `@react-three/drei` for the 3D bottle
-- `lucide-react` for icons
+- **Выбор языка** — говоришь по-русски или по-английски, весь интерфейс
+  переключается на твой язык. Учить можно английский, испанский, немецкий
+  (с русского) или русский, испанский, немецкий (с английского).
+- **Свой 3D-персонаж** — гусь, кот, капибара или жаба; 8 цветов, имя
+  (есть кнопка «🎲 Мне лень» с генератором имён). Персонажа можно потыкать —
+  он прыгает.
+- **Карта уроков** — 3 юнита («База», «Еда», «Хаос») по 3 урока, всё
+  открывается по очереди, прогресс и стрик сохраняются в localStorage.
+- **Уроки** — перевод слов в обе стороны и угадывание по эмодзи.
+  Правильный ответ: конфетти, похвала-мем, комбо и XP.
+  Неправильный: **экран трясётся, красная тревога, выезжает 3D-осёл и
+  стреляет лазерами из глаз**, а мем тебя поджаривает. Минус жизнь.
+- **Экзамен** — 10 вопросов, 15 секунд на каждый. Время вышло — осёл.
+  Провал — мемы позора. Сдал — фанфары и +100 XP.
+- **Жизни кончились** — приходит грустный гусь с ножом, и остаётся только
+  «Молить гуся о пощаде».
+- **Угрозы** — бегущая строка угроз на главной, случайные тосты в духе
+  «Один урок в день. Или один гусь в ночь.», а если уйти с вкладки —
+  заголовок сменится на «ВЕРНИСЬ. ГУСЬ ВСЁ ВИДИТ 🔪».
+- **Приколы** — кнопка «Пропустить урок» убегает от курсора, клик по лого
+  5 раз — сюрприз, мем дня, звуки на WebAudio (без аудиофайлов),
+  ранги от «Личинки полиглота» до «Сенсея гуся».
 
-## Getting started
+## Стек
+
+- Vite + React 18 + TypeScript (strict)
+- `three` + `@react-three/fiber` — процедурные 3D-персонажи и осёл с лазерами
+- Обычный CSS по компонентам, дизайн-токены в `src/styles/variables.css`
+- WebAudio-синтезатор для звуков, canvas-конфетти — всё без зависимостей
+
+## Запуск
 
 ```bash
 npm install
-npm run dev      # start the dev server
-npm run build    # type-check and build for production
-npm run preview  # preview the production build locally
+npm run dev      # дев-сервер
+npm run build    # тайпчек + прод-сборка
+npm run preview  # посмотреть прод-сборку
 ```
 
-## The 3D bottle model
-
-The hero and the pinned scroll scene render a 3D perfume bottle loaded from:
-
-```
-public/models/perfume-bottle.glb
-```
-
-This file is **not included** and is not fetched from any URL at runtime —
-download it yourself and place it at that exact path. A suggested source:
-
-https://pixabay.com/3d-models/glb-perfume-bottle-glass-vial-4060/
-
-**The site works perfectly without this file.** If the GLB is missing, fails
-to parse, or WebGL isn't available, an `ErrorBoundary` around the `<Canvas>`
-swaps in a hand-built CSS bottle (`src/three/BottleFallback.tsx`) with the
-same silhouette, gold cap, floating/rotation animation and glow — no blank
-canvas, no crash. In development mode a small console warning (and an
-on-screen dev-only badge) tells you the fallback is active.
-
-## Project structure
+## Структура
 
 ```
 src/
-  components/     Preloader, Header, CustomCursor, NoiseOverlay,
-                   MagneticButton, SectionHeading, ErrorBoundary
-  sections/       Hero, Notes, PinnedScene, Story, Collection, CTA, Footer
-  three/          PerfumeBottleScene, BottleModel, BottleFallback,
-                   BottleGroup, SceneLights, SceneParticles
-  hooks/          useReducedMotion, useMediaQuery, useScrollProgress,
-                   useMagnetic, useRevealOnScroll
-  lib/            gsap.ts (single ScrollTrigger registration), utils.ts
-  data/           notes.ts, fragrances.ts
-  types/          shared TypeScript interfaces
-  styles/         reset.css, variables.css (design tokens), typography.css,
-                   global.css
-public/
-  models/         put perfume-bottle.glb here
-  images/, fonts/ optional local assets
+  screens/      LanguagePick, CharacterCreator, Dashboard, Lesson (урок+экзамен)
+  components/   Logo, Preloader, Hud, DonkeyOverlay, GameOverModal,
+                ThreatToast, Confetti, ErrorBoundary
+  three/        Scene (Canvas + свет + фолбэк), CharacterModel (4 вида),
+                DonkeyModel (осёл с лазерами)
+  data/         vocab (словарь 4 языков), course (генератор вопросов), memes
+  hooks/        useSound (WebAudio), useReducedMotion, useMediaQuery
+  i18n.ts       все строки интерфейса на ru/en
+  store.ts      сохранение в localStorage
 ```
 
-## Design system
+## Технические заметки
 
-| Token | Value | Use |
-|---|---|---|
-| `--color-bg` | `#0d0b0b` | primary background |
-| `--color-bg-alt` | `#171313` | secondary background |
-| `--color-cream` | `#f4eee5` | warm white text |
-| `--color-gold` | `#d9b982` | champagne gold accent |
-| `--color-gold-dark` | `#8c6a39` | dark gold accent |
-| `--color-grey-beige` | `#aaa19a` | muted body text |
+- Если WebGL недоступен, каждая 3D-сцена деградирует в большой эмодзи —
+  сайт никогда не показывает пустую дыру и не падает (ErrorBoundary).
+- `prefers-reduced-motion` уважается: все анимации гасятся на уровне CSS.
+- Вопросы генерируются из общего словаря (60 слов × 4 языка), так что
+  добавить новый язык = добавить колонку переводов в `src/data/vocab.ts`.
+- Прогресс, профиль и настройки живут в `localStorage` под ключом
+  `lingogoose:v1`. Кнопка «Сбросить всё» внизу главной.
 
-All tokens live in `src/styles/variables.css`.
-
-## Motion system
-
-- **Preloader** — logo blur/opacity/scale-in, animated gold progress line,
-  blur-out exit, hard-capped at 4s so it never hangs.
-- **Hero** — letter-by-letter kinetic title reveal, staggered subtitle/CTA
-  entrance, bottle scale/opacity/translate entrance with a one-shot gold
-  sheen sweep, scroll-scrubbed background/copy parallax, pointer-driven
-  ambient glow.
-- **Notes** — scroll-triggered card reveal with stagger, hover lift, and an
-  animated SVG line reveal connecting the notes to a central glyph.
-- **Pinned scene** — a GSAP ScrollTrigger `pin` over a tall track scrubs the
-  bottle through a full 360° rotation, shifts the rim light from cool to
-  warm gold, and steps through four copy/note phases in sync.
-- **Story** — line-by-line title/paragraph reveal with a clip-path wipe on
-  the decorative panel and a scrub parallax on its background.
-- **Collection** — reveal-on-scroll cards with a pointer-driven 3D tilt and
-  a real "add to selection" toggle (no dead buttons).
-- **CTA** — reveal-on-scroll copy, magnetic gold button, rotating conic
-  gradient border.
-- Global: custom cursor (desktop only), film-grain overlay, and full
-  `prefers-reduced-motion` support — rotation, parallax, particles, and
-  stagger are all disabled or drastically shortened, ending in the same
-  final, readable state.
-
-## Accessibility & performance notes
-
-- Semantic landmarks (`header`, `main`, `section`, `nav`, `footer`),
-  real `button`/`a` elements throughout, visible `:focus-visible` states.
-- `prefers-reduced-motion` is respected everywhere motion is added (hooks,
-  GSAP timelines, and a CSS-level safety net in `reset.css`).
-- The 3D scene uses procedural drei `Lightformer`/`Environment` (no external
-  HDR fetch), capped `dpr`, fewer particles and no contact shadows on mobile,
-  and never renders a blank screen.
-- No CDN script tags — every dependency is a local npm package.
-
-## Known limitations
-
-- The GLB model is not bundled (by design/instructions); until you add one,
-  every 3D surface renders the CSS fallback bottle, which is intentional and
-  fully art-directed rather than a placeholder.
-- Fragrance imagery is CSS-composited (gradients/shadows), not photography —
-  swap in real product photos under `public/images/` if you have them.
-- Copy, pricing and the brand itself are fictional, created for this demo.
+LingoGoose не несёт ответственности за гусей, ослов и лазеры,
+появившихся у вас дома.

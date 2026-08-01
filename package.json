@@ -1,9 +1,9 @@
 {
-  "name": "noire-perfume",
+  "name": "lingogoose",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "NOIRÉ — premium perfume house. Cinematic marketing site built with React, TypeScript, GSAP and react-three-fiber.",
+  "description": "LingoGoose — a meme-fueled Duolingo-style language learning site with 3D characters, a laser donkey and mild threats. React + TypeScript + react-three-fiber.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -11,11 +11,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@react-three/drei": "^9.114.4",
     "@react-three/fiber": "^8.17.10",
-    "gsap": "^3.12.5",
-    "lucide-react": "^0.462.0",
-    "motion": "^11.11.17",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "three": "^0.169.0"
